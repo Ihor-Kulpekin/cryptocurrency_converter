@@ -34,7 +34,6 @@ export default {
       }
     },
     [messageSocketFailure]: (state) => {
-      debugger
       return {
         ...state,
         error: true

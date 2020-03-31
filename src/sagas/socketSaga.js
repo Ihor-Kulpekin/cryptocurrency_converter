@@ -1,41 +1,55 @@
-import {call, put, delay, apply, take, fork} from 'redux-saga/effects';
+import {call, put, delay, apply, take, fork, race} from 'redux-saga/effects';
 import {eventChannel} from 'redux-saga';
-import {messageSocketFailure, messageSocketSuccess} from '../actions/actions';
+import {messageSocket, messageSocketFailure, messageSocketSuccess} from '../actions/actions';
 import {handleStartStream} from "../api/apiSocket";
 import {subscription} from "../api/constants";
+import CCC from "../utils/streamer-util";
 
-const createSocketChannel = (socket) => {
+
+const createSocketChannel = () => {
+  let socket;
   return eventChannel((emit) => {
-    const pingHandler = () => {
-      const subrequest = {
-        'action':'SubAdd',
-        'subs': subscription
+    const createWS = () => {
+      socket = new WebSocket('wss://streamer.cryptocompare.com/v2?api_key=69e0cbfdd2b594ada2f9ccad63d21b1fbb349411f0fbb8f1043b9cbf5f14832c');
+      socket.onopen = () => {
+        const subRequest = {
+          "action": "SubAdd",
+          "subs": subscription
+        };
+        socket.send(JSON.stringify(subRequest));
       };
-      emit(subrequest)
-    };
 
-    return () => {
-      socket.off('ping', pingHandler);
+      socket.onmessage = ({data}) => {
+        const messageData = JSON.parse(data);
+        if (messageData.TYPE === CCC.TYPE.CURRENTAGG) {
+          return emit(messageData)
+        }
+      };
+
     };
+    createWS();
+
+    return socket.onclose = () => {
+      const subRequest = {
+        "action": "SubRemove",
+        "subs": subscription
+      };
+      socket.send(JSON.stringify(subRequest));
+    }
   })
 };
 
-function* pong(socket) {
-  yield delay(1000);
-  yield apply(socket, socket.emit('SubAdd', {subs: subscription}), ['m'])
+function* initializeWebSocketChannel() {
+  const channel = yield call(createSocketChannel);
+  while (true) {
+    const data = yield take(channel);
+    yield put(messageSocketSuccess(data))
+  }
 }
 
 export default function* socketSaga() {
-  const socket = yield call(handleStartStream);
-  const socketChannel = yield call(createSocketChannel, socket);
   while (true) {
-    try {
-      debugger
-      const payload = yield take(socketChannel);
-      yield put(messageSocketSuccess(payload));
-      yield fork(pong, socket);
-    } catch (error) {
-      yield put(messageSocketFailure(error))
-    }
+    yield take(messageSocket);
+    yield fork(initializeWebSocketChannel);
   }
 }

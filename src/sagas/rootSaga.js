@@ -1,8 +1,10 @@
-import {takeEvery} from 'redux-saga/effects';
+import {takeEvery,all} from 'redux-saga/effects';
 
 import socketSaga from './socketSaga';
 import {ActionTypes} from "../actions/constantsAction";
 
 export default function* rootSaga() {
-  yield takeEvery(ActionTypes.MESSAGE_SOCKET_CONNECTION, socketSaga);
+  yield all([
+    takeEvery(ActionTypes.MESSAGE_SOCKET_CONNECTION,socketSaga)
+  ]);
 }
