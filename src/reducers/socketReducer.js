@@ -1,11 +1,12 @@
 import {handleActions} from 'redux-actions';
 
-import {messageSocket, messageSocketSuccess, messageSocketFailure} from '../actions/actions';
+import {messageSocket, messageSocketFailure, messageSocketSuccess} from '../actions/actions';
 import CCC from '../utils/streamer-util'
 
 const initialState = {
   error: false,
-  cryptocurrencies: []
+  cryptocurrencies: [],
+  cryptocurrenciesPrice: []
 };
 
 export default {
@@ -21,16 +22,24 @@ export default {
       const currentPricePair = CCC.CURRENT.dataUnpack(unpackPair);
       const indexOfCrypto = cryptoscurrenciesLocal.indexOf(currentPricePair);
 
-      if(indexOfCrypto===-1){
+      const cryptocurrenciesPrice = cryptoscurrenciesLocal.map((item) => {
+        return {
+          symbol: item.FROMSYMBOL,
+          price: item.PRICE
+        };
+      });
+
+      if (indexOfCrypto === -1) {
         cryptoscurrenciesLocal.push(currentPricePair)
-      }else {
+      } else {
         cryptoscurrenciesLocal[indexOfCrypto] = currentPricePair;
       }
 
       return {
         ...state,
         error: false,
-        cryptocurrencies:cryptoscurrenciesLocal
+        cryptocurrencies: cryptoscurrenciesLocal,
+        cryptocurrenciesPrice: cryptocurrenciesPrice
       }
     },
     [messageSocketFailure]: (state) => {

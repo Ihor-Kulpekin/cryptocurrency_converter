@@ -1,25 +1,16 @@
-import React, {useEffect} from 'react';
-import './App.css';
-import './css/style.css'
-import {useDispatch, useSelector} from "react-redux";
-import {messageSocket} from "./actions/actions";
+import React from 'react';
 
-function App() {
-  const {cryptocurrencies} = useSelector((state)=>state.cryptocurrencies);
-  const dispatch = useDispatch();
+import Header from './components/Header';
+import CryptocurrenciesContainer from './components/CryptocurrenciesContainer';
 
-  const socketOpen = ()=>{
-    dispatch(messageSocket());
-  };
 
-  useEffect(socketOpen,[]);
-
+const App = () => {
   return (
-    <div className="App">
-      {console.log(cryptocurrencies)}
-      <p>Add a little style!.</p>
-    </div>
+    <>
+      <Header/>
+      <CryptocurrenciesContainer/>
+    </>
   );
-}
+};
 
 export default App;

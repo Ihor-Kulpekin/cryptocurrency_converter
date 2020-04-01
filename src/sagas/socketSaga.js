@@ -1,8 +1,7 @@
-import {call, put, delay, apply, take, fork, race} from 'redux-saga/effects';
+import {call, put, take, fork} from 'redux-saga/effects';
 import {eventChannel} from 'redux-saga';
-import {messageSocket, messageSocketFailure, messageSocketSuccess} from '../actions/actions';
-import {handleStartStream} from "../api/apiSocket";
-import {subscription} from "../api/constants";
+import {messageSocket, messageSocketSuccess} from '../actions/actions';
+import {subscription} from "../socketApi/constants";
 import CCC from "../utils/streamer-util";
 
 
@@ -10,7 +9,7 @@ const createSocketChannel = () => {
   let socket;
   return eventChannel((emit) => {
     const createWS = () => {
-      socket = new WebSocket('wss://streamer.cryptocompare.com/v2?api_key=69e0cbfdd2b594ada2f9ccad63d21b1fbb349411f0fbb8f1043b9cbf5f14832c');
+      socket = new WebSocket('wss://streamer.cryptocompare.com/v2?api_key=472acc686258651c37a910904111e8b7786eebe7350c3e2d932613384e23bca6');
       socket.onopen = () => {
         const subRequest = {
           "action": "SubAdd",
@@ -42,8 +41,8 @@ const createSocketChannel = () => {
 function* initializeWebSocketChannel() {
   const channel = yield call(createSocketChannel);
   while (true) {
-    const data = yield take(channel);
-    yield put(messageSocketSuccess(data))
+      const data = yield take(channel);
+      yield put(messageSocketSuccess(data))
   }
 }
 
