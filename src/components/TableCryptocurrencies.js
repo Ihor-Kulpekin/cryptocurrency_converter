@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
+import ListTableItems from './ListTableItems';
 import '../scss/table.scss'
 import '../scss/global.scss'
 
@@ -17,21 +19,15 @@ const TableCryptocurrencies = ({cryptocurrencies}) => {
         </tr>
         </thead>
         <tbody>
-        {cryptocurrencies.map((item, index) => {
-          return (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{item.FROMSYMBOL}</td>
-              <td className={item.FLAGS===1?'up':'down'}>{item.PRICE}$</td>
-              <td>{item.LASTVOLUME}</td>
-              <td>{item.MARKET}</td>
-            </tr>
-          )
-        })}
+        <ListTableItems cryptocurrencies={cryptocurrencies}/>
         </tbody>
       </table>
     </div>
   )
+};
+
+TableCryptocurrencies.propTypes = {
+  cryptocurrencies: PropTypes.array.isRequired
 };
 
 export default TableCryptocurrencies;

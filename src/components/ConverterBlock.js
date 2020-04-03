@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
 import '../scss/global.scss';
 import '../scss/converterBlock.scss'
+import ListOptions from "./ListOptions";
 
 const ConverterBlock = ({cryptocurrenciesPrice}) => {
 
@@ -42,25 +44,11 @@ const ConverterBlock = ({cryptocurrenciesPrice}) => {
             <span>1{firstSelectValue}={firstPrice.price}$</span>
           </div>
           <div>
-            <select className="select" onChange={handleFirstSelectChange} value={firstSelectValue} name="currencies"
-                    id="currencies">
-              {cryptocurrenciesPrice.map((item, index) => {
-                return (
-                  <option key={index}>
-                    {item.symbol}
-                  </option>
-                )
-              })}
+            <select className="select" onChange={handleFirstSelectChange} value={firstSelectValue} name="currencies">
+              <ListOptions cryptocurrenciesPrice={cryptocurrenciesPrice}/>
             </select>
-            <select className="select" onChange={handleSecondSelectChange} name="currencies" value={secondSelectValue}
-                    id="currencies">
-              {cryptocurrenciesPrice.map((item, index) => {
-                return (
-                  <option key={index}>
-                    {item.symbol}
-                  </option>
-                )
-              })}
+            <select className="select" onChange={handleSecondSelectChange} name="currencies" value={secondSelectValue}>
+              <ListOptions cryptocurrenciesPrice={cryptocurrenciesPrice}/>
             </select>
             <span>1 {secondSelectValue}={secondPrice.price}$</span>
           </div>
@@ -68,6 +56,10 @@ const ConverterBlock = ({cryptocurrenciesPrice}) => {
       </div>
     </div>
   )
+};
+
+ConverterBlock.propTypes = {
+  cryptocurrenciesPrice:PropTypes.array.isRequired
 };
 
 export default ConverterBlock;
