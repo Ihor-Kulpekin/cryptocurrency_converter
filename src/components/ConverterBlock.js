@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import '../scss/global.scss';
 import '../scss/converterBlock.scss'
@@ -6,11 +6,11 @@ import '../scss/converterBlock.scss'
 const ConverterBlock = ({cryptocurrenciesPrice}) => {
 
   const [firstInputValue, setFirstInputValue] = useState(1);
-  const [secondInputValue, setSecondInputValue] = useState(6348.66/38.76);
+  const [secondInputValue, setSecondInputValue] = useState(6348.66 / 38.76);
   const [firstSelectValue, setFirstSelectValue] = useState('BTC');
   const [secondSelectValue, setSecondSelectValue] = useState('LTC');
-  const [firstPrice,setFirstPrice] = useState({});
-  const [secondPrice,setSecondPrice] = useState({});
+  const [firstPrice, setFirstPrice] = useState({});
+  const [secondPrice, setSecondPrice] = useState({});
 
   const handleFirstInputChange = (event) => {
     setFirstInputValue(event.target.value);
@@ -22,10 +22,10 @@ const ConverterBlock = ({cryptocurrenciesPrice}) => {
 
   const handleSecondSelectChange = (event) => {
     setSecondSelectValue(event.target.value);
-    if(cryptocurrenciesPrice!==undefined){
-      const firstPrice = cryptocurrenciesPrice.find(object=>object.symbol===firstSelectValue);
-      const secondPrice = cryptocurrenciesPrice.find(object=>object.symbol===secondSelectValue);
-      const result = firstPrice.price/secondPrice.price;
+    if (cryptocurrenciesPrice !== undefined) {
+      const firstPrice = cryptocurrenciesPrice.find(object => object.symbol === firstSelectValue);
+      const secondPrice = cryptocurrenciesPrice.find(object => object.symbol === secondSelectValue);
+      const result = firstPrice.price / secondPrice.price;
       setSecondInputValue(result);
       setFirstPrice(firstPrice);
       setSecondPrice(secondPrice);
@@ -40,7 +40,7 @@ const ConverterBlock = ({cryptocurrenciesPrice}) => {
             <input className="styleInput" type="number" onChange={handleFirstInputChange} value={firstInputValue}/>
             <input className="styleInput" type="number" value={secondInputValue}/>
             <span>1{firstSelectValue}={firstPrice.price}$</span>
-            </div>
+          </div>
           <div>
             <select className="select" onChange={handleFirstSelectChange} value={firstSelectValue} name="currencies"
                     id="currencies">

@@ -1,1 +1,0 @@
-export const constantsForRestApi = 'BTC,ETH,XRP,BCN,ADA,XLM,LTC,NEO,EOS,XEM,IOT,DASH,XMR,TRX,VEN,BTG,QTUM';

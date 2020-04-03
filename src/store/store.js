@@ -3,7 +3,6 @@ import {createStore, compose, applyMiddleware} from 'redux';
 
 import rootReducer from '../reducers/rootReducer';
 import * as sagas from '../sagas/socketSaga';
-import thunk from "redux-thunk";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,7 +14,6 @@ window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
 
 const middleware = composeEnhancers(
   applyMiddleware(
-    thunk,
     sagaMiddleware
   )
 );

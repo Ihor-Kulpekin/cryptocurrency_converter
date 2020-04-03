@@ -9,7 +9,7 @@ export const subscription =
     '5~CCCAGG~LTC~USD',
     '5~CCCAGG~NEO~USD',
     '5~CCCAGG~EOS~USD',
-    '5~CCCAGG~XEM~USD',
+    '5~CCCAGG~LINK~USD',
     '5~CCCAGG~IOT~USD',
     '5~CCCAGG~DASH~USD',
     '5~CCCAGG~XMR~USD',

@@ -33,34 +33,6 @@ CCC.CURRENT.FIELDS = {
   , 'LASTMARKET': 0x40000   // hex for binary 1000000000000000000, this is a special case and will only appear on CCCAGG messages
 };
 
-CCC.CURRENT.DISPLAY = CCC.CURRENT.DISPLAY || {};
-CCC.CURRENT.DISPLAY.FIELDS = {
-  'TYPE': {'Show': false}
-  , 'MARKET': {'Show': true, 'Filter': 'Market'}
-  , 'FROMSYMBOL': {'Show': false}
-  , 'TOSYMBOL': {'Show': false}
-  , 'FLAGS': {'Show': false}
-  , 'PRICE': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'BID': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'OFFER': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'LASTUPDATE': {'Show': true, 'Filter': 'Date', 'Format': 'yyyy MMMM dd HH:mm:ss'}
-  , 'AVG': {'Show': true, ' Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'LASTVOLUME': {'Show': true, 'Filter': 'Number', 'Symbol': 'FROMSYMBOL'}
-  , 'LASTVOLUMETO': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'LASTTRADEID': {'Show': true, 'Filter': 'String'}
-  , 'VOLUMEHOUR': {'Show': true, 'Filter': 'Number', 'Symbol': 'FROMSYMBOL'}
-  , 'VOLUMEHOURTO': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'VOLUME24HOUR': {'Show': true, 'Filter': 'Number', 'Symbol': 'FROMSYMBOL'}
-  , 'VOLUME24HOURTO': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'OPENHOUR': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'HIGHHOUR': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'LOWHOUR': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'OPEN24HOUR': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'HIGH24HOUR': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'LOW24HOUR': {'Show': true, 'Filter': 'Number', 'Symbol': 'TOSYMBOL'}
-  , 'LASTMARKET': {'Show': true, 'Filter': 'String'}
-};
-
 CCC.CURRENT_PRICE = CCC.CURRENT_PRICE || {};
 
 CCC.CURRENT_PRICE.PRICE = {
@@ -73,11 +45,7 @@ CCC.CURRENT.dataUnpack = (data) => {
   const to = data.TOSYMBOL;
   const pair = from + to;
 
-  // if (!currentPrice.hasOwnProperty(pair)) {
-  //   currentPrice[pair] = {};
-  // }
-
-  Object.keys(data).map((key)=>{
+  Object.keys(data).map((key) => {
     if (!currentPrice.hasOwnProperty(pair)) {
       currentPrice[pair] = {};
     }
@@ -94,9 +62,8 @@ CCC.CURRENT.dataUnpack = (data) => {
 
 CCC.CURRENT.unpack = function (payload) {
   const valuesArray = Object.values(payload);
-  const valuesArrayLenght = valuesArray.length;
-  const mask = valuesArray[valuesArrayLenght - 1];
-  const maskInt = parseInt(mask, 16);
+  const valuesArrayLength = valuesArray.length;
+  const mask = valuesArray[valuesArrayLength - 1];
   const unpackedCurrent = {};
   let currentField = 0;
 
@@ -104,11 +71,11 @@ CCC.CURRENT.unpack = function (payload) {
     if (this.FIELDS[property] === 0) {
       unpackedCurrent[property] = valuesArray[currentField];
       currentField++;
-    } else if (maskInt && this.FIELDS[property]) {
+    } else if (mask && this.FIELDS[property]) {
       if (property === 'LASTMARKET') {
         unpackedCurrent[property] = valuesArray[currentField];
       } else {
-        unpackedCurrent[property] = parseFloat(valuesArray[currentField]);
+        unpackedCurrent[property] = valuesArray[currentField];
       }
       currentField++;
     }
