@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ListTableItems from './ListTableItems';
-import '../scss/table.scss'
-import '../scss/global.scss'
+import './table.scss'
+import '../global.scss'
 
 const TableCryptocurrencies = ({cryptocurrencies}) => {
   return (

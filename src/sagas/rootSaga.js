@@ -1,11 +1,12 @@
-import {all, fork} from 'redux-saga/effects';
+import {all, fork,takeLatest} from 'redux-saga/effects';
 
 import socketSaga from './socketSaga';
 import getExchanges from './exchangesSaga';
+import {ActionTypes} from '../actions/constantsAction';
 
 export default function* rootSaga() {
   yield all([
     fork(socketSaga),
-    fork(getExchanges)
+    takeLatest(ActionTypes.GET_EXCHANGES,getExchanges)
   ]);
 }

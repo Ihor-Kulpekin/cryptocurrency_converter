@@ -6,7 +6,7 @@ const TableItem = ({item, index}) => {
     <tr>
       <td>{index + 1}</td>
       <td>{item.FROMSYMBOL}</td>
-      <td className={item.FLAGS === 1 ? 'up' : 'down'}>{item.PRICE}$</td>
+      <td className={item.FLAGS === 1 ? 'up' : 'down'}>$ {item.PRICE}</td>
       <td>{item.LASTVOLUME}</td>
       <td>{item.MARKET}</td>
     </tr>

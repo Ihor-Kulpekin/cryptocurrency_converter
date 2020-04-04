@@ -17,4 +17,5 @@ export const subscription =
     '5~CCCAGG~VEN~USD',
     '5~CCCAGG~BTG~USD',
     '5~CCCAGG~QTUM~USD',
+    '5~CCCAGG~OKB~USD'
   ];

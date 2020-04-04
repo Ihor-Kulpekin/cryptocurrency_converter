@@ -1,18 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
-import '../../scss/global.scss';
-import '../../scss/converterBlock.scss'
+import '../global.scss';
+import './converterBlock.scss'
 import ListOptions from './ListOptions';
-import {getExchanges} from "../../actions/actions";
-import {useDispatch} from "react-redux";
+import {getExchanges} from '../../actions/actions';
+import {useDispatch, useSelector} from 'react-redux';
 
 const ConverterBlock = ({cryptocurrenciesPrice}) => {
   const [fromInputValue, setFromInputValue] = useState(1);
   let [toInputValue, setToInputValue] = useState(Number);
   const [fromCryptoCurrency, setFromCryptoCurrency] = useState('BTC');
   const [toCryptoCurrency, setToCryptoCurrency] = useState('LTC');
+  const exchange = useSelector((state) => state.cryptoExchange.exchanges);
   const dispatch = useDispatch();
+
 
   if (fromInputValue > 0) {
     toInputValue = toInputValue * fromInputValue;
@@ -23,7 +25,7 @@ const ConverterBlock = ({cryptocurrenciesPrice}) => {
   };
 
   const handleSecondInputValue = () => {
-    setToInputValue(toInputValue);
+    setToInputValue(exchange[toCryptoCurrency]);
   };
 
   const handleFirstSelectChange = (event) => {
@@ -34,12 +36,16 @@ const ConverterBlock = ({cryptocurrenciesPrice}) => {
     setToCryptoCurrency(event.target.value);
   };
 
-  useEffect(() => {
-    fetch('https://min-api.cryptocompare.com/data/price?fsym=' + fromCryptoCurrency + '&tsyms=' + toCryptoCurrency)
-      .then((response) => response.json())
-      .then((result) => setToInputValue(result[toCryptoCurrency]))
-  }, [fromCryptoCurrency, toCryptoCurrency]);
+  const fetchExchanges = () => {
+    dispatch(getExchanges({
+      fromCryptoCurrency,
+      toCryptoCurrency
+    }))
+  };
 
+  useEffect(fetchExchanges,[]);
+
+  console.log(exchange);
   return (
     <div className="converterBlock">
       <div className="wrapper">
