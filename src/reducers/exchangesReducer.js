@@ -1,30 +1,31 @@
 import {handleActions} from 'redux-actions';
-import {getExchanges, getExchangesFailure, getExchangesSuccess} from "../actions/actions";
+
+import {getExchanges, getExchangesFailure, getExchangesSuccess} from '../actions/actions';
 
 const initialState = {
-  priceExchange:{},
-  error:false
+  error: false,
+  exchanges: {}
 };
 
 export default {
-  cryptoExchange:handleActions({
-    [getExchanges]:(state)=>{
-      return{
+  cryptoExchange: handleActions({
+    [getExchanges]: (state) => {
+      return {
         ...state
       }
     },
-    [getExchangesSuccess]:(state,{payload})=>{
-      return{
+    [getExchangesSuccess]: (state, {payload}) => {
+      return {
         ...state,
-        priceExchange: payload[0],
-        error:false
+        exchanges: payload,
+        error: false
       }
     },
-    [getExchangesFailure]:(state)=>{
-      return{
+    [getExchangesFailure]: (state) => {
+      return {
         ...state,
-        error:true
+        error: true
       }
     }
-  },initialState)
+  }, initialState)
 }

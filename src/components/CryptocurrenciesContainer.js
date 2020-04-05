@@ -2,13 +2,11 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {messageSocket} from '../actions/actions';
-import ConverterBlock from './converter/ConverterBlock';
 import TableCryptocurrencies from './table/TableCryptocurrencies';
 
 const CryptocurrenciesContainer = () => {
-  const {cryptocurrencies} = useSelector((state) => state.cryptocurrencies);
-  const cryptocurrenciesPrice = useSelector((state)=>state.cryptocurrencies.cryptocurrenciesPrice);
   const dispatch = useDispatch();
+  const {cryptocurrencies} = useSelector((state) => state.cryptocurrencies);
 
   const socketOpen = () => {
     dispatch(messageSocket());
@@ -18,8 +16,7 @@ const CryptocurrenciesContainer = () => {
 
   return (
     <>
-      <ConverterBlock cryptocurrenciesPrice={cryptocurrenciesPrice}/>
-      <TableCryptocurrencies cryptocurrencies={cryptocurrencies}/>
+      <TableCryptocurrencies cryptocurrencies={cryptocurrencies} dispatch={dispatch}/>
     </>
   )
 };

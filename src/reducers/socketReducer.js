@@ -25,7 +25,6 @@ export default {
       const cryptocurrenciesPrice = cryptoscurrenciesLocal.map((item) => {
         return {
           symbol: item.FROMSYMBOL,
-          price: item.PRICE
         };
       });
 

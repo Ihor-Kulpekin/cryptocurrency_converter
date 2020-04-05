@@ -1,13 +1,13 @@
 import {call, put, take, fork} from 'redux-saga/effects';
+
 import {messageSocket, messageSocketSuccess} from '../actions/actions';
 import {createSocketChannel} from '../socketApi/socketApi';
-
 
 function* initializeWebSocketChannel() {
   const channel = yield call(createSocketChannel);
   while (true) {
-      const data = yield take(channel);
-      yield put(messageSocketSuccess(data))
+    const data = yield take(channel);
+    yield put(messageSocketSuccess(data))
   }
 }
 

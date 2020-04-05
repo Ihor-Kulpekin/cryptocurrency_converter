@@ -1,16 +1,16 @@
-.table{
+.table {
   margin-top: 30px;
 
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 
-  td,th{
+  td, th {
     border: 1px solid #ddd;
     padding: 8px;
   }
 
-  th{
+  th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
@@ -18,9 +18,10 @@
     color: white;
   }
 
-  tr{
+  tr {
     box-sizing: border-box;
   }
+
   .up {
     color: green;
   }

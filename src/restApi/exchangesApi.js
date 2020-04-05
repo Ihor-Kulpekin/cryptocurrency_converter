@@ -1,4 +1,5 @@
-export const getExchanges = async (payload) => {
-  const response = await fetch('https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=LTC');
+export const getExchanges = async ({fromCryptoCurrency, toCryptoCurrency}) => {
+  const response = await fetch('https://min-api.cryptocompare.com/data/price?fsym=' +
+    fromCryptoCurrency + '&tsyms=' + toCryptoCurrency);
   return await response.json();
 };

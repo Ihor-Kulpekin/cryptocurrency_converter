@@ -4,8 +4,14 @@ import PropTypes from 'prop-types';
 import ListTableItems from './ListTableItems';
 import './table.scss'
 import '../global.scss'
+import {getObjectFromComponent} from '../../actions/actions';
 
-const TableCryptocurrencies = ({cryptocurrencies}) => {
+const TableCryptocurrencies = ({cryptocurrencies, dispatch}) => {
+
+  const getRowData = (object) => {
+    dispatch(getObjectFromComponent(object));
+  };
+
   return (
     <div className="wrapper">
       <table className="table">
@@ -19,7 +25,7 @@ const TableCryptocurrencies = ({cryptocurrencies}) => {
         </tr>
         </thead>
         <tbody>
-        <ListTableItems cryptocurrencies={cryptocurrencies}/>
+        <ListTableItems cryptocurrencies={cryptocurrencies} getRowData={getRowData}/>
         </tbody>
       </table>
     </div>

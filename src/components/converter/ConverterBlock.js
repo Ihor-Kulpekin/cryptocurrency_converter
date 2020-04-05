@@ -1,31 +1,44 @@
 import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
 
 import '../global.scss';
-import './converterBlock.scss'
+import './converterBlock.scss';
+import './iconStyle.scss';
 import ListOptions from './ListOptions';
 import {getExchanges} from '../../actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
-const ConverterBlock = ({cryptocurrenciesPrice}) => {
+const ConverterBlock = () => {
   const [fromInputValue, setFromInputValue] = useState(1);
-  let [toInputValue, setToInputValue] = useState(Number);
   const [fromCryptoCurrency, setFromCryptoCurrency] = useState('BTC');
-  const [toCryptoCurrency, setToCryptoCurrency] = useState('LTC');
-  const exchange = useSelector((state) => state.cryptoExchange.exchanges);
+  const [toCryptoCurrency, setToCryptoCurrency] = useState('NEO');
+  const [counter, setCounter] = useState(0);
+  let exchange = useSelector((state) => state.cryptoExchange.exchanges[toCryptoCurrency]);
+  const cryptocurrenciesPrice = useSelector((state) => state.cryptocurrencies.cryptocurrenciesPrice);
+  const objectFromTable = useSelector((state) => state.objectFromComponent.objectTable);
   const dispatch = useDispatch();
 
 
   if (fromInputValue > 0) {
-    toInputValue = toInputValue * fromInputValue;
+    exchange = exchange * fromInputValue;
   }
+
+  const getDataFromTable = () => {
+    if (counter === 0) {
+      setCounter(1);
+      setToCryptoCurrency(objectFromTable.FROMSYMBOL);
+    } else {
+      setFromCryptoCurrency(objectFromTable.FROMSYMBOL);
+      setCounter(0)
+    }
+  };
+
+  const replaceSelects = () => {
+    setFromCryptoCurrency(toCryptoCurrency);
+    setToCryptoCurrency(fromCryptoCurrency);
+  };
 
   const handleFirstInputChange = (event) => {
     setFromInputValue(event.target.value);
-  };
-
-  const handleSecondInputValue = () => {
-    setToInputValue(exchange[toCryptoCurrency]);
   };
 
   const handleFirstSelectChange = (event) => {
@@ -43,33 +56,33 @@ const ConverterBlock = ({cryptocurrenciesPrice}) => {
     }))
   };
 
-  useEffect(fetchExchanges,[]);
+  useEffect(getDataFromTable,[objectFromTable]);
 
-  console.log(exchange);
+  useEffect(fetchExchanges, [fromCryptoCurrency,toCryptoCurrency]);
+
   return (
     <div className="converterBlock">
       <div className="wrapper">
         <div className="inputs">
           <div className="inputText">
-            <input className="styleInput" type="number" onChange={handleFirstInputChange} value={fromInputValue}/>
-            <input onChange={handleSecondInputValue} className="styleInput" type="number" value={toInputValue}/>
-          </div>
-          <div>
             <select className="select" onChange={handleFirstSelectChange} value={fromCryptoCurrency} name="currencies">
               <ListOptions cryptocurrenciesPrice={cryptocurrenciesPrice}/>
             </select>
+            <input className="styleInput" type="number" onChange={handleFirstInputChange} value={fromInputValue}/>
+          </div>
+          <div className="icon" onClick={replaceSelects}>
+            <i className="icon-exchange"/>
+          </div>
+          <div className="inputText">
             <select className="select" onChange={handleSecondSelectChange} name="currencies" value={toCryptoCurrency}>
               <ListOptions cryptocurrenciesPrice={cryptocurrenciesPrice}/>
             </select>
+            <input className="styleInput" type="number" value={exchange.toString()} readOnly/>
           </div>
         </div>
       </div>
     </div>
   )
-};
-
-ConverterBlock.propTypes = {
-  cryptocurrenciesPrice: PropTypes.array.isRequired
 };
 
 export default ConverterBlock;
