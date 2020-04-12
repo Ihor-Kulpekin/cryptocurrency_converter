@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import ConverterBlock from './components/converter/ConverterBlock';
 import CryptocurrenciesContainer from './components/CryptocurrenciesContainer';
 import './components/global.scss'
+import DetailsCryptocurrency from "./components/DetailsCryptocurrency/DetailsCryptocurrency";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <ConverterBlock/>
           <CryptocurrenciesContainer/>
         </Route>
+        <Route exact path="/cryptocurrencies" component={DetailsCryptocurrency}/>
       </Switch>
     </>
   );

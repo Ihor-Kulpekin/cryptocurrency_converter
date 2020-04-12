@@ -13,3 +13,7 @@ export const getExchangesFailure = createAction(ActionTypes.GET_EXCHANGES_FAILUR
 export const getObjectFromComponent = createAction(ActionTypes.GET_OBJECT_FROM_COMPONENT,(payload)=>payload);
 export const getObjectFromComponentSuccess = createAction(ActionTypes.GET_OBJECT_FROM_COMPONENT_SUCCESS,(payload)=>payload);
 export const getObjectFromComponentFailure = createAction(ActionTypes.GET_OBJECT_FROM_COMPONENT_FAILURE,(payload)=>payload);
+
+export const getHistoricalData = createAction(ActionTypes.GET_HISTORICAL_DATA,(payload)=>payload);
+export const getHistoricalDataSuccess = createAction(ActionTypes.GET_HISTORICAL_DATA_SUCCESS,(payload)=>payload);
+export const getHistoricalDataFailure = createAction(ActionTypes.GET_HISTORICAL_DATA_FAILURE,(payload)=>payload);
