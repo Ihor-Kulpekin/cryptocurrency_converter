@@ -4,7 +4,8 @@ import {getHistoricalData, getHistoricalDataFailure, getHistoricalDataSuccess} f
 
 const initialState = {
   error: false,
-  historicalData: []
+  historicalData: [],
+  months:['January','February','March','April','May','June','July','August','September','October','November','December']
 };
 
 export default {
@@ -12,14 +13,22 @@ export default {
     [getHistoricalData]: (state) => {
       return {
         ...state,
-        error: false
+        error: false,
       }
     },
     [getHistoricalDataSuccess]: (state, {payload}) => {
-      debugger
+      const {months} = state;
+      const arrayHistoricalData = payload.Data.Data.map((item)=>{
+        const date = new Date(item.time*1000);
+        const month = months[date.getMonth()];
+        const dayMonth = date.getDate();
+        item.time = month+' '+dayMonth;
+        return item;
+      });
+
       return {
         ...state,
-        historicalData: payload.Data.Data,
+        historicalData:arrayHistoricalData,
         error: false
       }
     },
@@ -29,5 +38,5 @@ export default {
         error: true
       }
     }
-  },initialState)
+  }, initialState)
 }
