@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {getHistoricalData} from '../../actions/actions';
 import  '../global.scss';
+import '../marginBlocks.scss';
 import GraphicCryptocurrency from './GraphicCryptocurrency';
 
 const DetailsCryptocurrencyContainer = () => {
@@ -18,8 +19,8 @@ const DetailsCryptocurrencyContainer = () => {
   useEffect(fetchHistoricalData, [id]);
 
   return (
-    <div className="wrapper">
-      <GraphicCryptocurrency historicalData={historicalData}/>
+    <div className="wrapper marginBlocks">
+      <GraphicCryptocurrency id={id} historicalData={historicalData}/>
     </div>
   )
 };

@@ -8,7 +8,7 @@ export const createSocketChannel = () => {
   let socket;
   return eventChannel((emit) => {
     const createWS = () => {
-      socket = new WebSocket('wss://streamer.cryptocompare.com/v2?api_key=0a2d655449b7a670979333472cbcc4e51b8632806bd9345e16559b7b205cc6a4');
+      socket = new WebSocket('wss://streamer.cryptocompare.com/v2?api_key=676ef898aaade9d4a327801e5761ded6c85ab3681be42fe4e38a5dd4e2c81f98');
       socket.onopen = () => {
         const subRequest = {
           "action": "SubAdd",

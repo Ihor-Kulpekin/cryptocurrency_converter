@@ -1,0 +1,73 @@
+.table {
+  margin-top: 30px;
+
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+
+  .color {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    @extend .color
+  }
+
+  tr {
+    box-sizing: border-box;
+  }
+
+  td {
+    text-align: center;
+  }
+
+  .button {
+    @extend .color;
+    height: 25px;
+    padding: 5px 5px 15px 5px;
+  }
+
+  .buttonItem {
+    text-decoration: none;
+    background-color: #4CAF50;
+    color:white;
+    padding: 2px 2px 2px 2px;
+    width: 80px;
+  }
+
+  .navLinkActive{
+    :hover{
+      cursor: pointer;
+    }
+  }
+
+  .selectedTd{
+    cursor: pointer;
+  }
+
+  .up {
+    color: green;
+  }
+
+  .down {
+    color: red;
+  }
+
+  .unchanged {
+    color: orange;
+  }
+
+  .exchange {
+    color: #42f492;
+  }
+}
+

@@ -5,6 +5,7 @@ import {getHistoricalData, getHistoricalDataFailure, getHistoricalDataSuccess} f
 const initialState = {
   error: false,
   historicalData: [],
+
   months:['January','February','March','April','May','June','July','August','September','October','November','December']
 };
 
@@ -23,6 +24,7 @@ export default {
         const month = months[date.getMonth()];
         const dayMonth = date.getDate();
         item.time = month+' '+dayMonth;
+
         return item;
       });
 

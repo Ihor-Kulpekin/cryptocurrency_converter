@@ -4,8 +4,7 @@ import {Route, Switch} from 'react-router-dom';
 import Header from './components/Header/Header';
 import ConverterBlock from './components/converter/ConverterBlock';
 import CryptocurrenciesContainer from './components/CryptocurrenciesContainer';
-import './components/global.scss'
-import DetailsCryptocurrency from "./components/DetailsCryptocurrency/DetailsCryptocurrency";
+import DetailsCryptocurrencyContainer from './components/DetailsCryptocurrency/DetailsCryptocurrencyContainer';
 
 const App = () => {
   return (
@@ -16,7 +15,7 @@ const App = () => {
           <ConverterBlock/>
           <CryptocurrenciesContainer/>
         </Route>
-        <Route exact path="/cryptocurrencies" component={DetailsCryptocurrency}/>
+        <Route path="/cryptocurrencies/:id" component={DetailsCryptocurrencyContainer}/>
       </Switch>
     </>
   );

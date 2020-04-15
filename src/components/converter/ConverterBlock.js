@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from 'react';
 
 import '../global.scss';
-import './converterBlock.scss';
+import './ConverterBlock.scss';
 import './iconStyle.scss';
+import '../marginBlocks.scss';
+
 import ListOptions from './ListOptions';
 import {getExchanges} from '../../actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 
 const ConverterBlock = () => {
   const [fromInputValue, setFromInputValue] = useState(1);
-  const [fromCryptoCurrency, setFromCryptoCurrency] = useState('BTC');
-  const [toCryptoCurrency, setToCryptoCurrency] = useState('NEO');
+  const [fromCryptoCurrency, setFromCryptoCurrency] = useState('NEO');
+  const [toCryptoCurrency, setToCryptoCurrency] = useState('BTC');
   const [counter, setCounter] = useState(0);
   let exchange = useSelector((state) => state.cryptoExchange.exchanges[toCryptoCurrency]);
   const cryptocurrenciesPrice = useSelector((state) => state.cryptocurrencies.cryptocurrenciesPrice);
@@ -61,7 +63,7 @@ const ConverterBlock = () => {
   useEffect(fetchExchanges, [fromCryptoCurrency,toCryptoCurrency]);
 
   return (
-    <div className="converterBlock">
+    <div className="converterBlock marginBlocks">
       <div className="wrapper">
         <div className="inputs">
           <div className="inputText">
@@ -77,7 +79,7 @@ const ConverterBlock = () => {
             <select className="select" onChange={handleSecondSelectChange} name="currencies" value={toCryptoCurrency}>
               <ListOptions cryptocurrenciesPrice={cryptocurrenciesPrice}/>
             </select>
-            <input className="styleInput" type="number" value={exchange.toString()} readOnly/>
+            <input className="styleInput" type="number" value={exchange} readOnly/>
           </div>
         </div>
       </div>

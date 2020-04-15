@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ListTableItems from './ListTableItems';
-import './table.scss'
-import '../global.scss'
+import './TableCryptocurrencies.scss';
+import '../global.scss';
+import '../marginBlocks.scss';
 import {getObjectFromComponent} from '../../actions/actions';
 
 const TableCryptocurrencies = ({cryptocurrencies, dispatch}) => {
-
   const getRowData = (object) => {
     dispatch(getObjectFromComponent(object));
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper marginBlocks">
       <table className="table">
         <thead>
         <tr>
@@ -22,6 +22,7 @@ const TableCryptocurrencies = ({cryptocurrencies, dispatch}) => {
           <th>Price</th>
           <th>Last Volume</th>
           <th>Market</th>
+          <th>Details</th>
         </tr>
         </thead>
         <tbody>
